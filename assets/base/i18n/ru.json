@@ -70,7 +70,7 @@
   "combined_system_message.you": "Вы",
   "create_comment.addComment": "Добавить комментарий...",
   "create_post.deactivated": "Вы просматриваете архивированный канал с деактивированным пользователем.",
-  "create_post.write": "Write to {channelDisplayName}",
+  "create_post.write": "Ваше сообщение...",
   "edit_post.editPost": "Редактировать сообщение...",
   "edit_post.save": "Сохранить",
   "error.team_not_found.title": "Команда не найдена",

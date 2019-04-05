@@ -244,65 +244,13 @@ class Settings extends PureComponent {
                         onPress={this.goToDisplaySettings}
                         showArrow={showArrow}
                         theme={theme}
-                    />
-                    {showTeams &&
-                    <SettingsItem
-                        defaultMessage='Open teams you can join'
-                        i18nId={t('mobile.select_team.join_open')}
-                        iconName='list'
-                        iconType='foundation'
-                        onPress={this.goToSelectTeam}
-                        showArrow={showArrow}
-                        theme={theme}
-                    />
-                    }
-                    {showHelp &&
-                    <SettingsItem
-                        defaultMessage='Help'
-                        i18nId={t('mobile.help.title')}
-                        iconName='md-help'
-                        iconType='ion'
-                        onPress={this.openHelp}
-                        showArrow={showArrow}
-                        theme={theme}
-                    />
-                    }
-                    <SettingsItem
-                        defaultMessage='Report a Problem'
-                        i18nId={t('sidebar_right_menu.report')}
-                        iconName='exclamation'
-                        iconType='fontawesome'
-                        onPress={this.openErrorEmail}
-                        showArrow={showArrow}
-                        theme={theme}
-                    />
+                    />               
                     <SettingsItem
                         defaultMessage='Advanced Settings'
                         i18nId={t('mobile.advanced_settings.title')}
                         iconName='ios-hammer'
                         iconType='ion'
                         onPress={this.goToAdvancedSettings}
-                        showArrow={showArrow}
-                        theme={theme}
-                    />
-                    {LocalConfig.EnableMobileClientUpgrade && LocalConfig.EnableMobileClientUpgradeUserSetting &&
-                    <SettingsItem
-                        defaultMessage='Check for Upgrade'
-                        i18nId={t('mobile.settings.modal.check_for_upgrade')}
-                        iconName='update'
-                        iconType='material'
-                        onPress={this.goToClientUpgrade}
-                        showArrow={showArrow}
-                        theme={theme}
-                    />
-                    }
-                    <SettingsItem
-                        defaultMessage='About Mattermost'
-                        i18nId={t('about.title')}
-                        iconName='ios-information-circle'
-                        iconType='ion'
-                        onPress={this.goToAbout}
-                        separator={false}
                         showArrow={showArrow}
                         theme={theme}
                     />
