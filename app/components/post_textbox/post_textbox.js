@@ -20,6 +20,12 @@ import {t} from 'app/utils/i18n';
 import FormattedMarkdownText from 'app/components/formatted_markdown_text';
 import FormattedText from 'app/components/formatted_text';
 
+import {getChannel, canManageChannelMembers, getCurrentChannelId} from 'mattermost-redux/selectors/entities/channels';
+import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
+import {getCurrentUserId, getCurrentUserRoles} from 'mattermost-redux/selectors/entities/users';
+import {isAdmin as checkIsAdmin, isSystemAdmin as checkIsSystemAdmin, isChannelAdmin as checkIsChannelAdmin} from 'mattermost-redux/utils/user_utils';
+import {store} from 'app/mattermost';
+
 import Typing from './components/typing';
 
 const AUTOCOMPLETE_MARGIN = 20;
@@ -529,6 +535,31 @@ export default class PostTextbox extends PureComponent {
             channelIsArchived,
         } = this.props;
 
+        let state = store.getState(); //loading app state from redux
+
+        let isChannelPublic = false; //Only apply writing dissalowment to public channels. Depends on channel.type. O = public, P = private, G = group, D = deactivated?
+        let isCurrentUserAdmin = true; //Only channel/system admins should see input textbox and be able to write
+
+        let currentChannel = state.entities.channels.channels[channelId];
+        let currentUserId = getCurrentUserId(state);
+        let roles = getCurrentUserId(state) ? getCurrentUserRoles(state) : '';
+        let isSystemAdmin = checkIsSystemAdmin(roles);
+        let isChannelAdmin = checkIsChannelAdmin(roles);
+
+        isCurrentUserAdmin = isSystemAdmin || isChannelAdmin;
+        isChannelPublic = currentChannel.type === "O" ? true : false;
+
+        let isChannelPostableForUser = true;
+
+        if (isChannelPublic) {
+            isChannelPostableForUser = isCurrentUserAdmin ? true : false;
+        }
+
+        // console.warn("PPosoDebug: channel " + currentChannel.name + "is public: " + isChannelPublic + "\nUser isSystemAdmin: " + isSystemAdmin + ", isChannelAdmin" + isChannelAdmin + "\n Postable for user: " + isChannelPostableForUser);
+        // console.error("PPosoDebug. props: " + JSON.stringify(state));
+        // console.error("Channel name: " + currentChannel.name + "\nisCurrentUserAdmin: " + isCurrentUserAdmin + "\nisSystemAdmin: " + isSystemAdmin + "\nisChannelAdmin" + isChannelAdmin + "\nChannel type: " + currentChannel.type + "\nisChannelPublic" + isChannelPublic + "\nChannel is postable fro user: " + isChannelPostableForUser);
+
+
         const style = getStyleSheet(theme);
         if (deactivatedChannel) {
             return (
@@ -536,6 +567,17 @@ export default class PostTextbox extends PureComponent {
                     {intl.formatMessage({
                         id: 'create_post.deactivated',
                         defaultMessage: 'You are viewing an archived channel with a deactivated user.',
+                    })}
+                </Text>
+            );
+        }
+        
+        if (!isChannelPostableForUser) {
+            return (
+                <Text style={style.deactivatedMessage}>
+                    {intl.formatMessage({
+                        id: 'create_post.notadmin',
+                        defaultMessage: 'Возможность добавления записей ограничена в публичных каналах.',
                     })}
                 </Text>
             );
