@@ -408,16 +408,16 @@ export default class AttachmentButton extends PureComponent {
             });
         }
 
-        if (canBrowseFiles) {
-            items.push({
-                action: () => this.handleFileAttachmentOption(this.attachFileFromFiles),
-                text: {
-                    id: t('mobile.file_upload.browse'),
-                    defaultMessage: 'Browse Files',
-                },
-                icon: 'file',
-            });
-        }
+        // if (canBrowseFiles) {
+        //     items.push({
+        //         action: () => this.handleFileAttachmentOption(this.attachFileFromFiles),
+        //         text: {
+        //             id: t('mobile.file_upload.browse'),
+        //             defaultMessage: 'Browse Files',
+        //         },
+        //         icon: 'file',
+        //     });
+        // }
 
         if (extraOptions) {
             extraOptions.forEach((option) => {
