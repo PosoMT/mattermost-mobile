@@ -31,7 +31,7 @@ export const SUPPORTED_DOCS_FORMAT = [
 
 const SUPPORTED_VIDEO_FORMAT = Platform.select({
     ios: ['video/mp4', 'video/x-m4v', 'video/quicktime'],
-    android: ['video/3gpp', 'video/x-matroska', 'video/mp4', 'video/webm'],
+    android: ['video/3gpp', 'video/x-matroska', 'video/mp4', 'video/webm', 'video/quicktime'],
 });
 
 const types = {};
@@ -106,6 +106,7 @@ export async function deleteFileCache() {
 }
 
 export function buildFileUploadData(file) {
+    console.warn("PPosoDebug file.js buildFileUploadData called\nfor file: " + JSON.stringify(file));
     const re = /heic/i;
     const uri = file.uri;
     let name = file.fileName || file.name || file.path || file.uri;
@@ -230,6 +231,14 @@ function populateMaps() {
 export function getLocalFilePathFromFile(dir, file) {
     if (dir && file && file.caption && file.data && file.data.id) {
         return `${dir}/${file.data.id}-${decodeURIComponent(file.caption).replace(/\s+/g, '-')}`;
+    }
+
+    return null;
+}
+
+export function pposoGetLocalFilePathFromFile(dir, file) {
+    if (dir && file && file.caption && file.data && file.data.id) {
+        return `${dir}/${decodeURIComponent(file.caption).replace(/\s+/g, '-')}`;
     }
 
     return null;
