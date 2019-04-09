@@ -13,7 +13,7 @@ export MATCH_USERNAME=ch-alex@mail.ru
 export FASTLANE_PASSWORD=P@ssw0rdICL2019
 
 # Your Apple ID Password (again)
-export MATCH_PASSWORD=
+export MATCH_PASSWORD=P@ssw0rdICL2019
 
 # URL to the git repo containing all the certificates
 export MATCH_GIT_URL=https://gitlab.com/PosoMT/mmcert.git
