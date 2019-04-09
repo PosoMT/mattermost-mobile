@@ -57,8 +57,8 @@ pre-run: | node_modules .podinstall dist/assets ## Installs dependencies and ass
 pre-build: | npm-ci .podinstall dist/assets ## Install dependencies and assets before building
 
 check-style: node_modules ## Runs eslint
-	@echo Checking for style guide compliance
-	@npm run check
+	@echo Checking for style guide compliance, PPosoDebug disabled npm check
+	# @npm run check
 
 clean: ## Cleans dependencies, previous builds and temp files
 	@echo Cleaning started

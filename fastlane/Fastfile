@@ -282,6 +282,7 @@ platform :ios do
         entitlements_file: './ios/Mattermost/Mattermost.entitlements',
         app_group_identifiers: [app_group_id]
     )
+    UI.success("PPosoDebug app group id now \"#{app_group_id}\" 💾.")
 
     find_replace_string(
         path_to_file: './ios/UploadAttachments/UploadAttachments/Constants.m',
